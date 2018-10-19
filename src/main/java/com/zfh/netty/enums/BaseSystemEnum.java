@@ -16,7 +16,9 @@ import java.util.concurrent.ConcurrentMap;
  * @Version V1.0
  */
 public enum BaseSystemEnum {
-
+    /**
+     * 系统名称和系统地址前缀
+     */
     ZFH_SPRINGBOOT(BaseProperties.ZFH_SPRINGBOOT, BaseProperties.ZFH_SPRINGBOOT_URI);
 
     BaseSystemEnum(String systemName, String systemUri) {
