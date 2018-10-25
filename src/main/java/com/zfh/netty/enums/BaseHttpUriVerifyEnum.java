@@ -16,9 +16,7 @@ import java.util.concurrent.ConcurrentMap;
  * @Version V1.0
  */
 public enum BaseHttpUriVerifyEnum {
-    /**
-     * 网关请求uri和对应系统
-     */
+
     ZFH_SPRINGBOOT_ZHIHU_TOPIC("/zhihu/topic/list", BaseProperties.ZFH_SPRINGBOOT);
 
     BaseHttpUriVerifyEnum(String requestUri, String systemName) {
@@ -34,7 +32,7 @@ public enum BaseHttpUriVerifyEnum {
      */
     static {
         for (BaseHttpUriVerifyEnum baseHttpUriVerifyEnum : BaseHttpUriVerifyEnum.values()) {
-            CODE_MAP.put(baseHttpUriVerifyEnum.systemName, baseHttpUriVerifyEnum);
+            CODE_MAP.put(baseHttpUriVerifyEnum.requestUri, baseHttpUriVerifyEnum);
         }
     }
 

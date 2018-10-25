@@ -34,11 +34,11 @@ public class HttpRequestHandle {
             /* 获取校验失败信息 */
             result = BaseHttpRequestVerify.getVerifyMessage(verify);
         } else {
+            String uri = BaseHttpRequestVerify.getGateWayUri(request.uri());
             if (content.isReadable()) {
-                result = BaseHttpRequest.send(request.method(), "http://localhost:8081" + request.uri(),
-                        content.toString(CharsetUtil.UTF_8).getBytes());
+                result = BaseHttpRequest.send(request.method(), uri, content.toString(CharsetUtil.UTF_8).getBytes());
             } else {
-                result = BaseHttpRequest.send(request.method(), "http://localhost:8081" + request.uri());
+                result = BaseHttpRequest.send(request.method(), uri);
             }
         }
         return result;

@@ -41,10 +41,10 @@ public class BaseProperties {
     /**
      * 配置文件app.name
      */
-    public static final String APP_NAME = PROPERTIES.getProperty("app.name");
+    public static final String APP_NAME           = PROPERTIES.getProperty("app.name");
     /**
      * 配置文件zfh.springboot.uri
      */
-    public static final String ZFH_SPRINGBOOT = PROPERTIES.getProperty("zfh.springboot");
-    public static final String ZFH_SPRINGBOOT_URI= PROPERTIES.getProperty("zfh.springboot.uri");
+    public static final String ZFH_SPRINGBOOT     = PROPERTIES.getProperty("zfh.springboot");
+    public static final String ZFH_SPRINGBOOT_URI = PROPERTIES.getProperty("zfh.springboot.uri");
 }

@@ -1,10 +1,7 @@
 package com.zfh.netty.common;
 
 import com.alibaba.fastjson.JSONObject;
-import com.zfh.netty.enums.BaseHttpHeaderEnum;
-import com.zfh.netty.enums.BaseHttpMethodEnum;
-import com.zfh.netty.enums.BaseHttpUriVerifyEnum;
-import com.zfh.netty.enums.BaseVerifyCodeEnum;
+import com.zfh.netty.enums.*;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpRequest;
 import org.apache.commons.lang3.StringUtils;
@@ -48,6 +45,20 @@ public class BaseHttpRequestVerify {
             return defaultErrorMessage();
         }
         return JSONObject.toJSONString(BaseResult.fail(baseVerifyCodeEnum));
+    }
+
+    /**
+     * 获取验证后项目请求地址
+     *
+     * @param uri
+     * @return
+     */
+    public static String getGateWayUri(String uri) {
+        BaseHttpUriVerifyEnum baseHttpUriVerifyEnum = BaseHttpUriVerifyEnum.getByRequestUri(uri);
+        BaseSystemEnum baseSystemEnum = BaseSystemEnum.getBySystemName(baseHttpUriVerifyEnum.getSystemName());
+        return baseSystemEnum.getSystemUri() + baseHttpUriVerifyEnum.getSystemName() +
+                baseHttpUriVerifyEnum.getRequestUri();
+
     }
 
     /**
@@ -104,6 +115,10 @@ public class BaseHttpRequestVerify {
     private static boolean verifyUri(String uri) {
         BaseHttpUriVerifyEnum baseHttpUriVerifyEnum = BaseHttpUriVerifyEnum.getByRequestUri(uri);
         if (Objects.isNull(baseHttpUriVerifyEnum)) {
+            return false;
+        }
+        BaseSystemEnum baseSystemEnum = BaseSystemEnum.getBySystemName(baseHttpUriVerifyEnum.getSystemName());
+        if (Objects.isNull(baseSystemEnum)) {
             return false;
         }
         return true;

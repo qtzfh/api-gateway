@@ -22,8 +22,8 @@ public enum BaseVerifyCodeEnum {
     VERIFY_SUCCESS(0, "成功"),
     VERIFY_UNKNOWN_FAIL(1, "未知异常"),
     VERIFY_METHOD_FAIL(2, "不支持此方法"),
-    VERIFY_HEADER_FAIL(3, "错误的请求头"),
-    VERIFY_URI_FAIL(4, "错误的请求地址");
+    VERIFY_HEADER_FAIL(3, "未知请求头"),
+    VERIFY_URI_FAIL(4, "未知请求地址");
 
     BaseVerifyCodeEnum(Integer code, String describe) {
         this.code = code;
