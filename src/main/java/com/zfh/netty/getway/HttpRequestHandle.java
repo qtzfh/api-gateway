@@ -2,11 +2,10 @@ package com.zfh.netty.getway;
 
 import com.zfh.netty.common.BaseHttpRequest;
 import com.zfh.netty.common.BaseHttpRequestVerify;
+import com.zfh.netty.common.BaseLogHandle;
 import io.netty.buffer.ByteBuf;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.util.CharsetUtil;
-import io.netty.util.internal.logging.InternalLogger;
-import io.netty.util.internal.logging.InternalLoggerFactory;
 
 /**
  * HttpRequestHandle
@@ -17,7 +16,7 @@ import io.netty.util.internal.logging.InternalLoggerFactory;
  * @Version V1.0
  */
 public class HttpRequestHandle {
-    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(HttpRequestHandle.class);
+    private static final BaseLogHandle BASE_LOG_HANDLE = new BaseLogHandle();
 
     /**
      * request 请求处理
@@ -40,6 +39,7 @@ public class HttpRequestHandle {
             } else {
                 result = BaseHttpRequest.send(request.method(), uri);
             }
+            BASE_LOG_HANDLE.send(request.method().name(), request.uri(), content.toString(CharsetUtil.UTF_8), result);
         }
         return result;
     }
