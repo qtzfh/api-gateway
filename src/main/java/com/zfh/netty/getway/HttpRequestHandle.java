@@ -2,7 +2,8 @@ package com.zfh.netty.getway;
 
 import com.zfh.netty.common.BaseHttpRequest;
 import com.zfh.netty.common.BaseHttpRequestVerify;
-import com.zfh.netty.common.BaseLogHandle;
+import com.zfh.netty.constants.BaseConstant;
+import com.zfh.netty.monitor.BaseLogHandle;
 import io.netty.buffer.ByteBuf;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.util.CharsetUtil;
@@ -16,6 +17,9 @@ import io.netty.util.CharsetUtil;
  * @Version V1.0
  */
 public class HttpRequestHandle {
+    /**
+     * 基础日志处理
+     */
     private static final BaseLogHandle BASE_LOG_HANDLE = new BaseLogHandle();
 
     /**
@@ -33,13 +37,14 @@ public class HttpRequestHandle {
             /* 获取校验失败信息 */
             result = BaseHttpRequestVerify.getVerifyMessage(verify);
         } else {
-            String uri = BaseHttpRequestVerify.getGateWayUri(request.uri());
+            String body = BaseConstant.EMPTY_STRING;
             if (content.isReadable()) {
-                result = BaseHttpRequest.send(request.method(), uri, content.toString(CharsetUtil.UTF_8).getBytes());
+                body = content.toString(CharsetUtil.UTF_8);
+                result = BaseHttpRequest.send(request.method(), request.uri(), body.getBytes());
             } else {
-                result = BaseHttpRequest.send(request.method(), uri);
+                result = BaseHttpRequest.send(request.method(), request.uri());
             }
-            BASE_LOG_HANDLE.send(request.method().name(), request.uri(), content.toString(CharsetUtil.UTF_8), result);
+            BASE_LOG_HANDLE.send(request.method().name(), request.uri(), body, result);
         }
         return result;
     }

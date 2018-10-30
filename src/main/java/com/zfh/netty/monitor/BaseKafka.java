@@ -1,5 +1,6 @@
-package com.zfh.netty.common;
+package com.zfh.netty.monitor;
 
+import com.zfh.netty.common.BaseProperties;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 

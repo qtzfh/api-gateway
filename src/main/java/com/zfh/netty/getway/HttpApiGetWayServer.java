@@ -23,8 +23,8 @@ import io.netty.handler.ssl.util.SelfSignedCertificate;
  */
 public final class HttpApiGetWayServer {
 
-    static final boolean SSL = System.getProperty("ssl") != null;
-    static final int PORT = Integer.parseInt(System.getProperty("port", SSL? "8443" : "8080"));
+    static final boolean SSL  = System.getProperty("ssl") != null;
+    static final int     PORT = Integer.parseInt(System.getProperty("port", SSL ? "8443" : "8080"));
 
     public static void main(String[] args) throws Exception {
         // Configure SSL.
@@ -35,16 +35,23 @@ public final class HttpApiGetWayServer {
         } else {
             sslCtx = null;
         }
-        // Configure the server.
-        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
+        /* 用于接收Client端连接 */
+        EventLoopGroup bossGroup = new NioEventLoopGroup();
+        /* 用于实际的业务处理操作 */
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
+            /* 进行server配置 */
             ServerBootstrap b = new ServerBootstrap();
-            b.option(ChannelOption.SO_BACKLOG, 1024);
-            b.group(bossGroup, workerGroup)
+            /* 设置tcp队列缓冲区 */
+            b.option(ChannelOption.SO_BACKLOG, 1024)
+                    /* 加入工作线程组 */
+                    .group(bossGroup, workerGroup)
+                    /* 指定通信类型 */
                     .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
+                    /* 绑定事件处理器 */
                     .childHandler(new HttpApiGetWayServerInitializer(sslCtx));
+            /* 绑定端口号 */
             Channel ch = b.bind(PORT).sync().channel();
             ch.closeFuture().sync();
         } finally {

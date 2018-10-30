@@ -1,7 +1,11 @@
 package com.zfh.netty.common;
 
 import com.alibaba.fastjson.JSONObject;
-import com.zfh.netty.enums.*;
+import com.zfh.netty.constants.BaseConstant;
+import com.zfh.netty.enums.BaseHttpHeaderEnum;
+import com.zfh.netty.enums.BaseHttpMethodEnum;
+import com.zfh.netty.enums.BaseSystemEnum;
+import com.zfh.netty.enums.BaseVerifyCodeEnum;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpRequest;
 import org.apache.commons.lang3.StringUtils;
@@ -48,25 +52,11 @@ public class BaseHttpRequestVerify {
     }
 
     /**
-     * 获取验证后项目请求地址
-     *
-     * @param uri
-     * @return
-     */
-    public static String getGateWayUri(String uri) {
-        BaseHttpUriVerifyEnum baseHttpUriVerifyEnum = BaseHttpUriVerifyEnum.getByRequestUri(uri);
-        BaseSystemEnum baseSystemEnum = BaseSystemEnum.getBySystemName(baseHttpUriVerifyEnum.getSystemName());
-        return baseSystemEnum.getSystemUri() + baseHttpUriVerifyEnum.getSystemName() +
-                baseHttpUriVerifyEnum.getRequestUri();
-
-    }
-
-    /**
      * 默认的异常返回信息
      *
      * @return
      */
-    public static String defaultErrorMessage() {
+    protected static String defaultErrorMessage() {
         return JSONObject.toJSONString(BaseResult.fail(BaseVerifyCodeEnum.VERIFY_UNKNOWN_FAIL));
     }
 
@@ -113,11 +103,14 @@ public class BaseHttpRequestVerify {
      * @return
      */
     private static boolean verifyUri(String uri) {
-        BaseHttpUriVerifyEnum baseHttpUriVerifyEnum = BaseHttpUriVerifyEnum.getByRequestUri(uri);
-        if (Objects.isNull(baseHttpUriVerifyEnum)) {
+        if (StringUtils.isBlank(uri)) {
             return false;
         }
-        BaseSystemEnum baseSystemEnum = BaseSystemEnum.getBySystemName(baseHttpUriVerifyEnum.getSystemName());
+        String[] url = StringUtils.splitByWholeSeparator(uri, BaseConstant.SPLIT_URI_STRING);
+        if (url.length <= 0) {
+            return false;
+        }
+        BaseSystemEnum baseSystemEnum = BaseSystemEnum.getBySystemName(url[1]);
         if (Objects.isNull(baseSystemEnum)) {
             return false;
         }

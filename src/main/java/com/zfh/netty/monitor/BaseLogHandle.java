@@ -1,5 +1,7 @@
-package com.zfh.netty.common;
+package com.zfh.netty.monitor;
 
+import com.zfh.netty.common.BaseProperties;
+import com.zfh.netty.constants.BaseConstant;
 import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -22,6 +24,17 @@ public class BaseLogHandle {
     private static final String        LOG_HANDLE_TYPE_KAFKA = "kafka";
     private static final AtomicInteger ATOMIC_INTEGER        = new AtomicInteger();
     private static final int           KAFKA_MAX_LOG_FLUSH   = 200;
+
+    /**
+     * 记录接口请求地址
+     *
+     * @param method 请求方式
+     * @param uri    请求地址
+     * @param result 接口返回结果
+     */
+    public void send(String method, String uri, String result) {
+        send(method, uri, BaseConstant.EMPTY_STRING, result);
+    }
 
     /**
      * 记录接口请求地址
@@ -51,6 +64,7 @@ public class BaseLogHandle {
      */
     private void toKafka(String afterResult) {
         var producer = BaseKafka.INSTANCE.getProducer();
+        /* 使用异步发送kafka数据 */
         producer.send(new ProducerRecord<>(LOG_HANDLE_TOPIC, afterResult), (metadata, e) -> {
             if (Objects.nonNull(e)) {
                 LOGGER.error("kafka生产者错误:{}:value:{}", metadata.offset(), afterResult, e);

@@ -23,7 +23,7 @@ public enum BaseVerifyCodeEnum {
     VERIFY_UNKNOWN_FAIL(1, "未知异常"),
     VERIFY_METHOD_FAIL(2, "不支持此方法"),
     VERIFY_HEADER_FAIL(3, "未知请求头"),
-    VERIFY_URI_FAIL(4, "未知请求地址");
+    VERIFY_URI_FAIL(4, "未知请求模块");
 
     BaseVerifyCodeEnum(Integer code, String describe) {
         this.code = code;
