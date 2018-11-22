@@ -1,4 +1,4 @@
-package com.zfh.netty.common;
+package com.api.gateway.common;
 
 import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;

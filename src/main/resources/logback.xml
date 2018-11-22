@@ -40,7 +40,7 @@
         </triggeringPolicy>
     </appender>
 
-    <logger name="com.zfh.netty.monitor.BaseLogHandle" level="${log.level}">
+    <logger name="com.api.gateway.monitor.BaseLogHandle" level="${log.level}">
         <appender-ref ref="HANDLE_LOG"/>
     </logger>
 

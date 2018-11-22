@@ -1,4 +1,4 @@
-package com.zfh.netty.common;
+package com.api.gateway.common;
 
 import io.netty.buffer.Unpooled;
 import io.netty.handler.codec.http.*;

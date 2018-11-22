@@ -1,6 +1,6 @@
-package com.zfh.netty.getway;
+package com.api.gateway;
 
-import com.zfh.netty.common.BaseHttpResponse;
+import com.api.gateway.common.BaseHttpResponse;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;

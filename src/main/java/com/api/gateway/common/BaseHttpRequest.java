@@ -1,6 +1,6 @@
-package com.zfh.netty.common;
+package com.api.gateway.common;
 
-import com.zfh.netty.enums.BaseHttpMethodEnum;
+import com.api.gateway.enums.BaseHttpMethodEnum;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;

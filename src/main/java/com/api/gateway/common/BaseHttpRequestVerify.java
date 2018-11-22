@@ -1,11 +1,11 @@
-package com.zfh.netty.common;
+package com.api.gateway.common;
 
 import com.alibaba.fastjson.JSONObject;
-import com.zfh.netty.constants.BaseConstant;
-import com.zfh.netty.enums.BaseHttpHeaderEnum;
-import com.zfh.netty.enums.BaseHttpMethodEnum;
-import com.zfh.netty.enums.BaseSystemEnum;
-import com.zfh.netty.enums.BaseVerifyCodeEnum;
+import com.api.gateway.constants.BaseConstant;
+import com.api.gateway.enums.BaseHttpHeaderEnum;
+import com.api.gateway.enums.BaseHttpMethodEnum;
+import com.api.gateway.enums.BaseSystemEnum;
+import com.api.gateway.enums.BaseVerifyCodeEnum;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpRequest;
 import org.apache.commons.lang3.StringUtils;

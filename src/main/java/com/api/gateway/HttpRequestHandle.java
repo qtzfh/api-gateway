@@ -1,9 +1,9 @@
-package com.zfh.netty.getway;
+package com.api.gateway;
 
-import com.zfh.netty.common.BaseHttpRequest;
-import com.zfh.netty.common.BaseHttpRequestVerify;
-import com.zfh.netty.constants.BaseConstant;
-import com.zfh.netty.monitor.BaseLogHandle;
+import com.api.gateway.common.BaseHttpRequest;
+import com.api.gateway.common.BaseHttpRequestVerify;
+import com.api.gateway.constants.BaseConstant;
+import com.api.gateway.monitor.BaseLogHandle;
 import io.netty.buffer.ByteBuf;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.util.CharsetUtil;

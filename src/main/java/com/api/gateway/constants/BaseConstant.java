@@ -1,4 +1,4 @@
-package com.zfh.netty.constants;
+package com.api.gateway.constants;
 
 /**
  * BaseConstant

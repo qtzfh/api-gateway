@@ -1,6 +1,6 @@
-package com.zfh.netty.enums;
+package com.api.gateway.enums;
 
-import com.zfh.netty.common.BaseProperties;
+import com.api.gateway.common.BaseProperties;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 

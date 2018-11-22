@@ -1,6 +1,6 @@
-package com.zfh.netty.common;
+package com.api.gateway.common;
 
-import com.zfh.netty.enums.BaseVerifyCodeEnum;
+import com.api.gateway.enums.BaseVerifyCodeEnum;
 import lombok.Getter;
 import lombok.Setter;
 

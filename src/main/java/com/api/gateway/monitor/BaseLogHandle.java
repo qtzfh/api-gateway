@@ -1,7 +1,7 @@
-package com.zfh.netty.monitor;
+package com.api.gateway.monitor;
 
-import com.zfh.netty.common.BaseProperties;
-import com.zfh.netty.constants.BaseConstant;
+import com.api.gateway.common.BaseProperties;
+import com.api.gateway.constants.BaseConstant;
 import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import org.apache.kafka.clients.producer.ProducerRecord;

@@ -1,4 +1,4 @@
-package com.zfh.netty.enums;
+package com.api.gateway.enums;
 
 /**
  * BaseHttpMethod

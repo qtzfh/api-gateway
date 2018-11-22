@@ -1,4 +1,4 @@
-package com.zfh.netty.getway;
+package com.api.gateway;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
