@@ -1,5 +1,6 @@
 package com.api.gateway;
 
+import com.api.gateway.common.BaseProperties;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelOption;

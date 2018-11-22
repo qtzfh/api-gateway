@@ -10,10 +10,6 @@ package com.api.gateway.constants;
  */
 public class BaseConstant {
     /**
-     * 空字符串
-     */
-    public static final String EMPTY_STRING = "";
-    /**
      * 分割url所需字符串
      */
     public static final String SPLIT_URI_STRING = "/";

@@ -4,6 +4,7 @@ import com.api.gateway.common.BaseProperties;
 import com.api.gateway.constants.BaseConstant;
 import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.util.Objects;
@@ -33,7 +34,7 @@ public class BaseLogHandle {
      * @param result 接口返回结果
      */
     public void send(String method, String uri, String result) {
-        send(method, uri, BaseConstant.EMPTY_STRING, result);
+        send(method, uri, StringUtils.EMPTY, result);
     }
 
     /**

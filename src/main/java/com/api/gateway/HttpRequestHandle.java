@@ -7,6 +7,7 @@ import com.api.gateway.monitor.BaseLogHandle;
 import io.netty.buffer.ByteBuf;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.util.CharsetUtil;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * HttpRequestHandle
@@ -37,7 +38,7 @@ public class HttpRequestHandle {
             /* 获取校验失败信息 */
             result = BaseHttpRequestVerify.getVerifyMessage(verify);
         } else {
-            String body = BaseConstant.EMPTY_STRING;
+            String body = StringUtils.EMPTY;
             if (content.isReadable()) {
                 body = content.toString(CharsetUtil.UTF_8);
                 result = BaseHttpRequest.send(request.method(), request.uri(), body.getBytes());
