@@ -1,6 +1,6 @@
 package com.api.gateway.manager.service.verify.impl;
 
-import com.api.gateway.common.BaseDBConnect;
+import com.api.gateway.base.BaseDBConnect;
 import com.api.gateway.manager.dao.verify.ApiVerifySystemMapper;
 import com.api.gateway.manager.dataobject.verify.ApiVerifySystemDO;
 import com.api.gateway.manager.service.verify.ApiVerifySystemService;

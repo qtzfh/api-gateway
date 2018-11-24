@@ -1,4 +1,4 @@
-package com.api.gateway.common;
+package com.api.gateway.base;
 
 import java.util.concurrent.*;
 

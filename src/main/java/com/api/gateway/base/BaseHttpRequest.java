@@ -1,6 +1,7 @@
-package com.api.gateway.common;
+package com.api.gateway.base;
 
 import com.api.gateway.enums.BaseHttpMethodEnum;
+import com.api.gateway.handle.ApiVerifyHandle;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;
@@ -55,7 +56,7 @@ public class BaseHttpRequest {
         } else if (httpMethod.name().equals(BaseHttpMethodEnum.POST.name())) {
             response = BaseHttpRequest.post(uri, body);
         }
-        return Objects.isNull(response) ? BaseHttpRequestVerify.defaultErrorMessage() : response.body();
+        return Objects.isNull(response) ? BaseResult.defaultErrorMessage() : response.body();
     }
 
     /**

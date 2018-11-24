@@ -1,6 +1,6 @@
 package com.api.gateway.manager.dataobject.verify;
 
-import com.api.gateway.common.BaseDO;
+import com.api.gateway.base.BaseDO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

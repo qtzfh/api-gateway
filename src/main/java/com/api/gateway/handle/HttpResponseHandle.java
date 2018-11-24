@@ -1,4 +1,4 @@
-package com.api.gateway.common;
+package com.api.gateway.handle;
 
 import io.netty.buffer.Unpooled;
 import io.netty.handler.codec.http.*;
@@ -15,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
  * @date 2018年10月11日
  * @Version V1.0
  */
-public class BaseHttpResponse {
+public class HttpResponseHandle {
 
     private static final AsciiString CONTENT_TYPE_JSON = AsciiString.cached("application/json");
 

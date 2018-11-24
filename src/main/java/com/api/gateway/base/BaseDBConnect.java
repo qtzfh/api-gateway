@@ -1,4 +1,4 @@
-package com.api.gateway.common;
+package com.api.gateway.base;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;

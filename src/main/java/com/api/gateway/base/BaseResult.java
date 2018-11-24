@@ -1,8 +1,11 @@
-package com.api.gateway.common;
+package com.api.gateway.base;
 
+import com.alibaba.fastjson.JSONObject;
 import com.api.gateway.enums.BaseVerifyCodeEnum;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Objects;
 
 /**
  * BaseResult
@@ -55,7 +58,16 @@ public class BaseResult<T> {
      * @param baseVerifyCode 统一定义的错误
      * @return
      */
-    public static <T> BaseResult fail(BaseVerifyCodeEnum baseVerifyCode) {
+    public static BaseResult fail(BaseVerifyCodeEnum baseVerifyCode) {
         return new BaseResult(baseVerifyCode.getCode(), baseVerifyCode.getDescribe());
+    }
+
+    /**
+     * 默认的异常返回信息
+     *
+     * @return
+     */
+    public static String defaultErrorMessage() {
+        return JSONObject.toJSONString(BaseResult.fail(BaseVerifyCodeEnum.VERIFY_UNKNOWN_FAIL));
     }
 }

@@ -1,7 +1,6 @@
 package com.api.gateway.monitor;
 
-import com.api.gateway.common.BaseProperties;
-import com.api.gateway.constants.BaseConstant;
+import com.api.gateway.base.BaseProperties;
 import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import org.apache.commons.lang3.StringUtils;
@@ -71,6 +70,7 @@ public class BaseLogHandle {
                 LOGGER.error("kafka生产者错误:{}:value:{}", metadata.offset(), afterResult, e);
             }
         });
+        /* 数据每超过“KAFKA_MAX_LOG_FLUSH”条，则刷新缓存区 */
         if (ATOMIC_INTEGER.getAndIncrement() >= KAFKA_MAX_LOG_FLUSH) {
             ATOMIC_INTEGER.set(0);
             producer.flush();

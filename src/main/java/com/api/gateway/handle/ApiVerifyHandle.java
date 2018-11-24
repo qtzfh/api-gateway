@@ -1,13 +1,13 @@
-package com.api.gateway.common;
+package com.api.gateway.handle;
 
 import com.alibaba.fastjson.JSONObject;
+import com.api.gateway.base.BaseResult;
+import com.api.gateway.base.BaseService;
 import com.api.gateway.constants.BaseConstant;
 import com.api.gateway.enums.BaseHttpHeaderEnum;
 import com.api.gateway.enums.BaseHttpMethodEnum;
 import com.api.gateway.enums.BaseVerifyCodeEnum;
 import com.api.gateway.manager.dataobject.verify.ApiVerifySystemDO;
-import com.api.gateway.manager.service.verify.ApiVerifySystemService;
-import com.api.gateway.manager.service.verify.impl.ApiVerifySystemServiceImpl;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpRequest;
 import org.apache.commons.lang3.StringUtils;
@@ -22,7 +22,7 @@ import java.util.Objects;
  * @date 2018年10月16日
  * @Version V1.0
  */
-public class BaseHttpRequestVerify {
+public class ApiVerifyHandle {
     /**
      * 校验请求表示
      *
@@ -48,18 +48,9 @@ public class BaseHttpRequestVerify {
     public static String getVerifyMessage(Integer verifyErrorCode) {
         BaseVerifyCodeEnum baseVerifyCodeEnum = BaseVerifyCodeEnum.getByCode(verifyErrorCode);
         if (Objects.isNull(baseVerifyCodeEnum)) {
-            return defaultErrorMessage();
+            return BaseResult.defaultErrorMessage();
         }
         return JSONObject.toJSONString(BaseResult.fail(baseVerifyCodeEnum));
-    }
-
-    /**
-     * 默认的异常返回信息
-     *
-     * @return
-     */
-    protected static String defaultErrorMessage() {
-        return JSONObject.toJSONString(BaseResult.fail(BaseVerifyCodeEnum.VERIFY_UNKNOWN_FAIL));
     }
 
     /**

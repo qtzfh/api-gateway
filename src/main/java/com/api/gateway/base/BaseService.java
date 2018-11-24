@@ -1,4 +1,4 @@
-package com.api.gateway.common;
+package com.api.gateway.base;
 
 import com.api.gateway.manager.service.verify.ApiVerifySystemService;
 import com.api.gateway.manager.service.verify.impl.ApiVerifySystemServiceImpl;

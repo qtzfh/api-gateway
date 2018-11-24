@@ -1,8 +1,6 @@
-package com.api.gateway;
+package com.api.gateway.handle;
 
-import com.api.gateway.common.BaseHttpRequest;
-import com.api.gateway.common.BaseHttpRequestVerify;
-import com.api.gateway.constants.BaseConstant;
+import com.api.gateway.base.BaseHttpRequest;
 import com.api.gateway.monitor.BaseLogHandle;
 import io.netty.buffer.ByteBuf;
 import io.netty.handler.codec.http.HttpRequest;
@@ -30,13 +28,13 @@ public class HttpRequestHandle {
      * @param content HttpApiGetWayServerHandler.ByteBuf
      * @return
      */
-    public static String requsteHandle(HttpRequest request, ByteBuf content) {
+    public static String requestHandle(HttpRequest request, ByteBuf content) {
         String result;
         /* 进行入参校验 */
-        var verify = BaseHttpRequestVerify.verify(request);
+        var verify = ApiVerifyHandle.verify(request);
         if (verify > 0) {
             /* 获取校验失败信息 */
-            result = BaseHttpRequestVerify.getVerifyMessage(verify);
+            result = ApiVerifyHandle.getVerifyMessage(verify);
         } else {
             String body = StringUtils.EMPTY;
             if (content.isReadable()) {

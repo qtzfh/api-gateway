@@ -1,4 +1,4 @@
-package com.api.gateway.common;
+package com.api.gateway.base;
 
 import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;

@@ -1,6 +1,7 @@
 package com.api.gateway;
 
-import com.api.gateway.common.BaseHttpResponse;
+import com.api.gateway.handle.HttpRequestHandle;
+import com.api.gateway.handle.HttpResponseHandle;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
@@ -34,7 +35,7 @@ public class HttpApiGetWayServerHandler extends SimpleChannelInboundHandler<Obje
         if (msg instanceof HttpRequest) {
             HttpRequest request = this.request = (HttpRequest) msg;
             if (HttpUtil.is100ContinueExpected(request)) {
-                ctx.write(BaseHttpResponse.httpContinueStatus());
+                ctx.write(HttpResponseHandle.httpContinueStatus());
             }
             if (request.decoderResult().isSuccess()) {
                 return;
@@ -46,7 +47,7 @@ public class HttpApiGetWayServerHandler extends SimpleChannelInboundHandler<Obje
             if (msg instanceof LastHttpContent) {
                 boolean keepAlive = HttpUtil.isKeepAlive(this.request);
                 if (keepAlive) {
-                    ctx.write(BaseHttpResponse.getResponse(HttpRequestHandle.requsteHandle(this.request, content),
+                    ctx.write(HttpResponseHandle.getResponse(HttpRequestHandle.requestHandle(this.request, content),
                             keepAlive));
                 } else {
                     ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);

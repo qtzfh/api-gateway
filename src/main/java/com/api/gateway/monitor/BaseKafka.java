@@ -1,6 +1,6 @@
 package com.api.gateway.monitor;
 
-import com.api.gateway.common.BaseProperties;
+import com.api.gateway.base.BaseProperties;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 
