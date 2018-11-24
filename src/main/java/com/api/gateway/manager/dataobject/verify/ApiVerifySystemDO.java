@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * ApiVerifySystem
  *
  * @author zhangfuhao
- * @Desc
+ * @Desc 系统信息表
  * @date 2018年11月24日
  * @Version V1.0
  */

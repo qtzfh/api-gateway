@@ -13,7 +13,7 @@ import com.api.gateway.manager.dataobject.verify.ApiVerifySystemDO;
 public interface ApiVerifySystemService {
     /**
      * 根据系统名称获取数据
-     * @param systemName
+     * @param systemName 系统名称
      * @return
      */
     ApiVerifySystemDO getBySystemName(String systemName);

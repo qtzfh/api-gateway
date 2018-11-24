@@ -12,6 +12,8 @@ import com.api.gateway.manager.service.verify.impl.ApiVerifySystemServiceImpl;
  * @Version V1.0
  */
 public class BaseService {
-
+    /**
+     * api校验服务
+     */
     public static final ApiVerifySystemService API_VERIFY_SYSTEM_SERVICE = new ApiVerifySystemServiceImpl();
 }

@@ -25,7 +25,7 @@ public enum BaseKafka {
     private static final String KAFKA_PRODUCER_KEY_SERIALIZER   = "org.apache.kafka.common.serialization.StringSerializer";
     private static final String KAFKA_PRODUCER_VALUE_SERIALIZER = "org.apache.kafka.common.serialization.StringSerializer";
 
-    private Producer<String, String> producer = null;
+    private Producer<String, String> producer;
 
     BaseKafka() {
         producer = setProducer();
