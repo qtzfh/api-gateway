@@ -4,6 +4,7 @@ CREATE TABLE `api_verify_system` (
   `id` int(10) unsigned NOT NULL COMMENT '主键id',
   `system_name` varchar(32) NOT NULL COMMENT '系统名称',
   `system_url` varchar(64) NOT NULL COMMENT '系统前缀地址',
+  `rate_limit` int(11) unsigned NOT NULL DEFAULT '20' COMMENT '限流速率',
   `gmt_create` datetime NOT NULL COMMENT '创建时间',
   `gmt_modified` datetime NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`),

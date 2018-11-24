@@ -4,6 +4,7 @@ import com.api.gateway.base.BaseDO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import scala.Int;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
@@ -32,19 +33,9 @@ public class ApiVerifySystemDO extends BaseDO {
     @Column(name = "system_url")
     private String systemUrl;
 
-    public String getSystemName() {
-        return systemName;
-    }
-
-    public void setSystemName(String systemName) {
-        this.systemName = systemName;
-    }
-
-    public String getSystemUrl() {
-        return systemUrl;
-    }
-
-    public void setSystemUrl(String systemUrl) {
-        this.systemUrl = systemUrl;
-    }
+    /**
+     * 限流速率
+     */
+    @Column(name = "rate_limit")
+    private Integer rateLimit;
 }

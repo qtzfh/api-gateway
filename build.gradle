@@ -39,4 +39,6 @@ dependencies {
     compile group: 'tk.mybatis', name: 'mapper', version: '4.0.4'
 
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.13'
+
+    compile group: 'com.google.guava', name: 'guava', version: '27.0-jre'
 }
