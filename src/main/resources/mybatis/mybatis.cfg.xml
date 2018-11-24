@@ -23,9 +23,6 @@
 
 
     <mappers>
-        <!-- 告知映射文件方式1，一个一个的配置 -->
-        <!--<mapper resource="resources/mybatis/TestMapper.xml"/>-->
-        <!-- 告知映射文件方式2，自动扫描包内的Mapper接口与配置文件 -->
-        <package name="com/api/gateway/mysql"/>
+        <package name="com/api/gateway/manager"/>
     </mappers>
 </configuration>

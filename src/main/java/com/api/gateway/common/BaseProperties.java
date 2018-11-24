@@ -44,11 +44,6 @@ public class BaseProperties {
     public static final String APP_NAME                = PROPERTIES.getProperty("app.name");
     public static final String LOG_HANDLE_TYPE         = PROPERTIES.getProperty("log.handle.type");
     /**
-     * 配置文件zfh.springboot.uri
-     */
-    public static final String ZFH_SPRINGBOOT          = PROPERTIES.getProperty("zfh.springboot");
-    public static final String ZFH_SPRINGBOOT_URI      = PROPERTIES.getProperty("zfh.springboot.uri");
-    /**
      * 配置文件kafka配置
      */
     public static final String KAFKA_SERVERS           = PROPERTIES.getProperty("kafka.bootstrap.servers");

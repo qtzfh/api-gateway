@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.api.gateway.manager.dao.verify.ApiVerifySystemMapper">
+    <!-- 自定义返回结果集 -->
+    <resultMap id="baseResult" type="com.api.gateway.manager.dataobject.verify.ApiVerifySystemDO">
+        <id property="id" column="id"></id>
+        <result property="gmtCreate" column="gmt_create"></result>
+        <result property="gmtModified" column="gmt_modified"></result>
+        <result property="systemName" column="system_name"></result>
+        <result property="systemUrl" column="system_url"></result>
+    </resultMap>
+</mapper>

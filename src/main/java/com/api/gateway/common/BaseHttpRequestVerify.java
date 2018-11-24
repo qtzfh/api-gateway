@@ -4,8 +4,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.api.gateway.constants.BaseConstant;
 import com.api.gateway.enums.BaseHttpHeaderEnum;
 import com.api.gateway.enums.BaseHttpMethodEnum;
-import com.api.gateway.enums.BaseSystemEnum;
 import com.api.gateway.enums.BaseVerifyCodeEnum;
+import com.api.gateway.manager.dataobject.verify.ApiVerifySystemDO;
+import com.api.gateway.manager.service.verify.ApiVerifySystemService;
+import com.api.gateway.manager.service.verify.impl.ApiVerifySystemServiceImpl;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpRequest;
 import org.apache.commons.lang3.StringUtils;
@@ -110,8 +112,8 @@ public class BaseHttpRequestVerify {
         if (url.length <= 0) {
             return false;
         }
-        BaseSystemEnum baseSystemEnum = BaseSystemEnum.getBySystemName(url[1]);
-        if (Objects.isNull(baseSystemEnum)) {
+        ApiVerifySystemDO apiVerifySystemDO =  BaseService.API_VERIFY_SYSTEM_SERVICE.getBySystemName(url[0]);
+        if (Objects.isNull(apiVerifySystemDO)) {
             return false;
         }
         return true;
