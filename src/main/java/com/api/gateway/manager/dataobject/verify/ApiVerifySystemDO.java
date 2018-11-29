@@ -34,6 +34,12 @@ public class ApiVerifySystemDO extends BaseDO {
     private String systemUrl;
 
     /**
+     * 系统等级
+     */
+    @Column(name = "system_level")
+    private Integer systemLevel;
+
+    /**
      * 限流速率
      */
     @Column(name = "rate_limit")

@@ -8,5 +8,6 @@
         <result property="gmtModified" column="gmt_modified"></result>
         <result property="systemName" column="system_name"></result>
         <result property="systemUrl" column="system_url"></result>
+        <result property="systemLevel" column="system_level"></result>
     </resultMap>
 </mapper>

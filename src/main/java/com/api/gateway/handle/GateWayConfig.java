@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
  * GateWayConfig
  *
  * @author zhangfuhao
- * @Desc
+ * @Desc 获取网关配置
  * @date 2018年11月29日
  * @Version V1.0
  */

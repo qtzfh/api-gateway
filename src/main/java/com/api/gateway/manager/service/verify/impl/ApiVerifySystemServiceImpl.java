@@ -6,8 +6,6 @@ import com.api.gateway.manager.dao.verify.ApiVerifySystemMapper;
 import com.api.gateway.manager.dataobject.verify.ApiVerifySystemDO;
 import com.api.gateway.manager.service.verify.ApiVerifySystemService;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -28,6 +26,7 @@ public class ApiVerifySystemServiceImpl implements ApiVerifySystemService {
         if (Objects.nonNull(apiVerifySystemDO)) {
             return apiVerifySystemDO;
         }
+        /* 风险提示，如果过多的请求都每次都需要通过此处查询数据库，则可能将拖挂数据库 */
         apiVerifySystemDO = new ApiVerifySystemDO();
         apiVerifySystemDO.setSystemName(systemName);
         apiVerifySystemDO = apiVerifySystemMapper.selectOne(apiVerifySystemDO);
