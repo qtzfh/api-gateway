@@ -37,13 +37,14 @@ public class HttpRequestHandle {
             result = ApiVerifyHandle.getVerifyMessage(verify);
         } else {
             String body = StringUtils.EMPTY;
+            String uri = ApiVerifyHandle.getGateWayUrl(request);
             if (content.isReadable()) {
                 body = content.toString(CharsetUtil.UTF_8);
-                result = BaseHttpRequest.send(request.method(), request.uri(), body.getBytes());
+                result = BaseHttpRequest.send(request.method(), uri, body.getBytes());
             } else {
-                result = BaseHttpRequest.send(request.method(), request.uri());
+                result = BaseHttpRequest.send(request.method(), uri);
             }
-            BASE_LOG_HANDLE.send(request.method().name(), request.uri(), body, result);
+            BASE_LOG_HANDLE.send(request.method().name(), uri, body, result);
         }
         return result;
     }

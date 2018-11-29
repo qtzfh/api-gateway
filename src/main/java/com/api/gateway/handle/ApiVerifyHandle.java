@@ -23,6 +23,8 @@ import java.util.Objects;
  * @Version V1.0
  */
 public class ApiVerifyHandle {
+    private static final Integer SYSTEM_MAX_URL_LENGTH = 1;
+
     /**
      * 校验请求表示
      *
@@ -30,12 +32,16 @@ public class ApiVerifyHandle {
      * @return
      */
     public static Integer verify(HttpRequest request) {
+        /* 系统名称，使用数组赋值 */
+        String[] systemName = new String[SYSTEM_MAX_URL_LENGTH];
         if (!verifyMethod(request.method().name())) {
             return BaseVerifyCodeEnum.VERIFY_METHOD_FAIL.getCode();
-        } else if (!verifyUri(request.uri())) {
+        } else if (!verifyUri(request.uri(), systemName)) {
             return BaseVerifyCodeEnum.VERIFY_URI_FAIL.getCode();
         } else if (!verifyHeaders(request.headers())) {
             return BaseVerifyCodeEnum.VERIFY_HEADER_FAIL.getCode();
+        } else if (!RateLimiterHandle.getAcquire(systemName[0])) {
+            return BaseVerifyCodeEnum.VERIFY_RATE_LIMIT_FAIL.getCode();
         }
         return BaseVerifyCodeEnum.VERIFY_SUCCESS.getCode();
     }
@@ -54,6 +60,17 @@ public class ApiVerifyHandle {
     }
 
     /**
+     * 获取系统域名前缀
+     * @param request
+     * @return
+     */
+    public static String getGateWayUrl(HttpRequest request) {
+        String[] url = StringUtils.splitByWholeSeparator(request.uri(), BaseConstant.SPLIT_URI_STRING);
+        ApiVerifySystemDO apiVerifySystemDO = BaseService.API_VERIFY_SYSTEM_SERVICE.getBySystemName(url[0]);
+        return apiVerifySystemDO.getSystemUrl() + request.uri();
+    }
+
+    /**
      * 仅允许get/post 请求
      *
      * @param method 请求名称
@@ -63,8 +80,7 @@ public class ApiVerifyHandle {
         if (StringUtils.isBlank(method)) {
             return false;
         }
-        if (method.toUpperCase().equals(BaseHttpMethodEnum.GET.name()) ||
-                method.toUpperCase().equals(BaseHttpMethodEnum.POST.name())) {
+        if (method.toUpperCase().equals(BaseHttpMethodEnum.GET.name()) || method.toUpperCase().equals(BaseHttpMethodEnum.POST.name())) {
             return true;
         }
         return false;
@@ -81,8 +97,7 @@ public class ApiVerifyHandle {
             return false;
         }
         for (BaseHttpHeaderEnum value : BaseHttpHeaderEnum.values()) {
-            if (StringUtils.isBlank(headers.get(value.getHeaderKey())) ||
-                    !headers.get(value.getHeaderKey()).equals(value.getHeaderValue())) {
+            if (StringUtils.isBlank(headers.get(value.getHeaderKey())) || !headers.get(value.getHeaderKey()).equals(value.getHeaderValue())) {
                 return false;
             }
         }
@@ -92,10 +107,11 @@ public class ApiVerifyHandle {
     /**
      * 验证请求uri
      *
-     * @param uri 请求的uri
+     * @param uri        请求的uri
+     * @param systemName 获取系统名称
      * @return
      */
-    private static boolean verifyUri(String uri) {
+    private static boolean verifyUri(String uri, String[] systemName) {
         if (StringUtils.isBlank(uri)) {
             return false;
         }
@@ -103,7 +119,8 @@ public class ApiVerifyHandle {
         if (url.length <= 0) {
             return false;
         }
-        ApiVerifySystemDO apiVerifySystemDO =  BaseService.API_VERIFY_SYSTEM_SERVICE.getBySystemName(url[0]);
+        systemName[0] = url[0];
+        ApiVerifySystemDO apiVerifySystemDO = BaseService.API_VERIFY_SYSTEM_SERVICE.getBySystemName(url[0]);
         if (Objects.isNull(apiVerifySystemDO)) {
             return false;
         }
