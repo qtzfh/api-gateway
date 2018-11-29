@@ -60,17 +60,6 @@ public class ApiVerifyHandle {
     }
 
     /**
-     * 获取系统域名前缀
-     * @param request
-     * @return
-     */
-    public static String getGateWayUrl(HttpRequest request) {
-        String[] url = StringUtils.splitByWholeSeparator(request.uri(), BaseConstant.SPLIT_URI_STRING);
-        ApiVerifySystemDO apiVerifySystemDO = BaseService.API_VERIFY_SYSTEM_SERVICE.getBySystemName(url[0]);
-        return apiVerifySystemDO.getSystemUrl() + request.uri();
-    }
-
-    /**
      * 仅允许get/post 请求
      *
      * @param method 请求名称

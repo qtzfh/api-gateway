@@ -37,7 +37,7 @@ public class HttpRequestHandle {
             result = ApiVerifyHandle.getVerifyMessage(verify);
         } else {
             String body = StringUtils.EMPTY;
-            String uri = ApiVerifyHandle.getGateWayUrl(request);
+            String uri = GateWayConfig.getGateWayUrl(request);
             if (content.isReadable()) {
                 body = content.toString(CharsetUtil.UTF_8);
                 result = BaseHttpRequest.send(request.method(), uri, body.getBytes());
