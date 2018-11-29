@@ -40,11 +40,11 @@ public class HttpRequestHandle {
             String uri = GateWayConfig.getGateWayUrl(request);
             if (content.isReadable()) {
                 body = content.toString(CharsetUtil.UTF_8);
-                result = BaseHttpRequest.send(request.method(), uri, body.getBytes());
+                result = BaseHttpRequest.send(request.method(), uri, body);
             } else {
                 result = BaseHttpRequest.send(request.method(), uri);
             }
-            BASE_LOG_HANDLE.send(request.method().name(), uri, body, result);
+            BASE_LOG_HANDLE.send(request.method().name(), request.uri(), body, result);
         }
         return result;
     }

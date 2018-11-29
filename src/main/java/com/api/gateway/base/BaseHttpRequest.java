@@ -1,10 +1,10 @@
 package com.api.gateway.base;
 
 import com.api.gateway.enums.BaseHttpMethodEnum;
-import com.api.gateway.handle.ApiVerifyHandle;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;
+import org.apache.commons.lang3.StringUtils;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -36,25 +36,26 @@ public class BaseHttpRequest {
      *
      * @param httpMethod 请求方法
      * @param uri        请求地址
-     * @return repsoneBody
+     * @return responseBody
      */
     public static String send(HttpMethod httpMethod, String uri) {
-        return send(httpMethod, uri, null);
+        return send(httpMethod, uri, StringUtils.EMPTY);
     }
 
     /**
      * 发送http请求
      *
-     * @param httpMethod 请求方法
-     * @param uri        请求地址
-     * @return repsoneBody
+     * @param httpMethod   请求方法
+     * @param uri          请求地址
+     * @param body         内容
+     * @return responseBody
      */
-    public static String send(HttpMethod httpMethod, String uri, byte[] body) {
+    public static String send(HttpMethod httpMethod, String uri, String body) {
         HttpResponse<String> response = null;
         if (httpMethod.name().equals(BaseHttpMethodEnum.GET.name())) {
             response = BaseHttpRequest.get(uri);
         } else if (httpMethod.name().equals(BaseHttpMethodEnum.POST.name())) {
-            response = BaseHttpRequest.post(uri, body);
+            response = BaseHttpRequest.post(uri, body.getBytes());
         }
         return Objects.isNull(response) ? BaseResult.defaultErrorMessage() : response.body();
     }

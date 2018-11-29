@@ -1,6 +1,7 @@
 package com.api.gateway.monitor;
 
 import com.api.gateway.base.BaseProperties;
+import com.api.gateway.base.BaseThreadFactory;
 import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +25,6 @@ public class BaseLogHandle {
     private static final String        LOG_HANDLE_TYPE_KAFKA = "kafka";
     private static final AtomicInteger ATOMIC_INTEGER        = new AtomicInteger();
     private static final int           KAFKA_MAX_LOG_FLUSH   = 200;
-
     /**
      * 记录接口请求地址
      *
@@ -45,16 +45,19 @@ public class BaseLogHandle {
      * @param result 接口返回结果
      */
     public void send(String method, String uri, String body, String result) {
-        /* 处理后日志 */
-        String afterResult = String.format("%s %s %s %s", method, uri, body, result);
-        switch (BaseProperties.LOG_HANDLE_TYPE) {
-            case LOG_HANDLE_TYPE_KAFKA:
-                toKafka(afterResult);
-                break;
-            default:
-                LOGGER.warn(afterResult);
-                break;
-        }
+        /* 异步发送日志 */
+        BaseThreadFactory.execute(()->{
+            /* 处理后日志 */
+            String afterResult = String.format("%s %s %s %s", method, uri, body, result);
+            switch (BaseProperties.LOG_HANDLE_TYPE) {
+                case LOG_HANDLE_TYPE_KAFKA:
+                    toKafka(afterResult);
+                    break;
+                default:
+                    LOGGER.warn(afterResult);
+                    break;
+            }
+        });
     }
 
     /**
