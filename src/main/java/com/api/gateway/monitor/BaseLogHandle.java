@@ -1,13 +1,13 @@
 package com.api.gateway.monitor;
 
 import com.api.gateway.base.BaseProperties;
-import com.api.gateway.base.BaseThreadFactory;
 import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -46,7 +46,7 @@ public class BaseLogHandle {
      */
     public void send(String method, String uri, String body, String result) {
         /* 异步发送日志 */
-        BaseThreadFactory.execute(()->{
+        CompletableFuture.runAsync(()->{
             /* 处理后日志 */
             String afterResult = String.format("%s %s %s %s", method, uri, body, result);
             switch (BaseProperties.LOG_HANDLE_TYPE) {
