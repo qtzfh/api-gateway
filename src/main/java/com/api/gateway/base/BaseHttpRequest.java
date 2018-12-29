@@ -57,7 +57,7 @@ public class BaseHttpRequest {
         } else if (httpMethod.name().equals(BaseHttpMethodEnum.POST.name())) {
             response = BaseHttpRequest.post(uri, body.getBytes());
         }
-        return Objects.isNull(response) ? BaseResult.timeoutErrorMessage(): response.body();
+        return Objects.isNull(response) ? BaseResult.timeoutErrorMessage() : response.body();
     }
 
     /**
@@ -68,7 +68,11 @@ public class BaseHttpRequest {
      */
     private static HttpResponse<String> get(String uri) {
         try {
-            var request = HttpRequest.newBuilder().uri(URI.create(uri)).timeout(Duration.ofSeconds(DEFAULT_TIME_OUT)).GET().build();
+            var request = HttpRequest.newBuilder()
+                    .uri(URI.create(uri))
+                    .timeout(Duration.ofSeconds(DEFAULT_TIME_OUT))
+                    .GET()
+                    .build();
             return HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
             LOGGER.error("HTTP GET请求错误", e);
@@ -88,7 +92,11 @@ public class BaseHttpRequest {
             if (Objects.isNull(body)) {
                 body = new byte[0];
             }
-            var request = HttpRequest.newBuilder().uri(URI.create(uri)).timeout(Duration.ofSeconds(DEFAULT_TIME_OUT)).POST(HttpRequest.BodyPublishers.ofByteArray(body)).build();
+            var request = HttpRequest.newBuilder()
+                    .uri(URI.create(uri))
+                    .timeout(Duration.ofSeconds(DEFAULT_TIME_OUT))
+                    .POST(HttpRequest.BodyPublishers.ofByteArray(body))
+                    .build();
             return HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
             LOGGER.error("HTTP POST请求错误", e);
