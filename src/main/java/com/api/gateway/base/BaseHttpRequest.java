@@ -25,11 +25,11 @@ public class BaseHttpRequest {
 
     private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(BaseHttpRequest.class);
 
-    private static final HttpClient HTTP_CLIENT      = HttpClient.newHttpClient();
+    private static final HttpClient HTTP_CLIENT = HttpClient.newHttpClient();
     /**
      * 默认超时时间（s）
      */
-    private static final int        DEFAULT_TIME_OUT = 3;
+    private static final int DEFAULT_TIME_OUT = 3;
 
     /**
      * 发送http请求
@@ -45,9 +45,9 @@ public class BaseHttpRequest {
     /**
      * 发送http请求
      *
-     * @param httpMethod   请求方法
-     * @param uri          请求地址
-     * @param body         内容
+     * @param httpMethod 请求方法
+     * @param uri        请求地址
+     * @param body       内容
      * @return responseBody
      */
     public static String send(HttpMethod httpMethod, String uri, String body) {
@@ -57,7 +57,7 @@ public class BaseHttpRequest {
         } else if (httpMethod.name().equals(BaseHttpMethodEnum.POST.name())) {
             response = BaseHttpRequest.post(uri, body.getBytes());
         }
-        return Objects.isNull(response) ? BaseResult.defaultErrorMessage() : response.body();
+        return Objects.isNull(response) ? BaseResult.timeoutErrorMessage(): response.body();
     }
 
     /**
@@ -68,11 +68,7 @@ public class BaseHttpRequest {
      */
     private static HttpResponse<String> get(String uri) {
         try {
-            var request = HttpRequest.newBuilder()
-                    .uri(URI.create(uri))
-                    .timeout(Duration.ofSeconds(DEFAULT_TIME_OUT))
-                    .GET()
-                    .build();
+            var request = HttpRequest.newBuilder().uri(URI.create(uri)).timeout(Duration.ofSeconds(DEFAULT_TIME_OUT)).GET().build();
             return HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
             LOGGER.error("HTTP GET请求错误", e);
@@ -92,11 +88,7 @@ public class BaseHttpRequest {
             if (Objects.isNull(body)) {
                 body = new byte[0];
             }
-            var request = HttpRequest.newBuilder()
-                    .uri(URI.create(uri))
-                    .timeout(Duration.ofSeconds(DEFAULT_TIME_OUT))
-                    .POST(HttpRequest.BodyPublishers.ofByteArray(body))
-                    .build();
+            var request = HttpRequest.newBuilder().uri(URI.create(uri)).timeout(Duration.ofSeconds(DEFAULT_TIME_OUT)).POST(HttpRequest.BodyPublishers.ofByteArray(body)).build();
             return HTTP_CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
             LOGGER.error("HTTP POST请求错误", e);

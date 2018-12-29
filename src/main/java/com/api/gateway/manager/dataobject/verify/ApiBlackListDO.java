@@ -1,5 +1,6 @@
 package com.api.gateway.manager.dataobject.verify;
 
+import com.api.gateway.base.BaseDO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -19,7 +20,7 @@ import javax.persistence.Table;
 @Setter
 @ToString
 @Table(name = "api_black_list")
-public class ApiBlackListDO {
+public class ApiBlackListDO extends BaseDO {
     /**
      * 封禁IP
      */

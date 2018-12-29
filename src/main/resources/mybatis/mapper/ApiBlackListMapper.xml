@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.api.gateway.manager.dao.verify.ApiBlackListMapper">
+    <!-- 自定义返回结果集 -->
+    <resultMap id="baseResult" type="com.api.gateway.manager.dataobject.verify.ApiBlackListDO">
+        <id property="id" column="id"></id>
+        <result property="gmtCreate" column="gmt_create"></result>
+        <result property="gmtModified" column="gmt_modified"></result>
+        <result property="ip" column="ip"></result>
+        <result property="level" column="level"></result>
+    </resultMap>
+</mapper>

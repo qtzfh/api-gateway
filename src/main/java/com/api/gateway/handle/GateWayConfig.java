@@ -1,10 +1,13 @@
 package com.api.gateway.handle;
 
+import com.api.gateway.base.BaseRequestInfo;
 import com.api.gateway.base.BaseService;
 import com.api.gateway.constants.BaseConstant;
+import com.api.gateway.exception.ServiceException;
 import com.api.gateway.manager.dataobject.verify.ApiVerifySystemDO;
-import io.netty.handler.codec.http.HttpRequest;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.Objects;
 
 /**
  * GateWayConfig
@@ -19,12 +22,18 @@ public class GateWayConfig {
     /**
      * 获取系统域名前缀
      *
-     * @param request
+     * @param requestInfo
      * @return
      */
-    public static String getGateWayUrl(HttpRequest request) {
-        String[] url = StringUtils.splitByWholeSeparator(request.uri(), BaseConstant.SPLIT_URI_STRING);
+    public static String getGateWayUrl(BaseRequestInfo requestInfo) {
+        String[] url = StringUtils.splitByWholeSeparator(requestInfo.getUri(), BaseConstant.SPLIT_URI_STRING);
+        if (Objects.isNull(url) || url.length <= 0){
+            throw new ServiceException("获取请求地址失败");
+        }
         ApiVerifySystemDO apiVerifySystemDO = BaseService.API_VERIFY_SYSTEM_SERVICE.getBySystemName(url[0]);
-        return apiVerifySystemDO.getSystemUrl() + request.uri();
+        if (Objects.isNull(apiVerifySystemDO)){
+            throw new ServiceException("获取系统系统");
+        }
+        return apiVerifySystemDO.getSystemUrl() + requestInfo.getUri();
     }
 }

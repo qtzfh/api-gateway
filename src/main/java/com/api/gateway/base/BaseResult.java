@@ -5,8 +5,6 @@ import com.api.gateway.enums.BaseVerifyCodeEnum;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Objects;
-
 /**
  * BaseResult
  *
@@ -69,5 +67,14 @@ public class BaseResult<T> {
      */
     public static String defaultErrorMessage() {
         return JSONObject.toJSONString(BaseResult.fail(BaseVerifyCodeEnum.VERIFY_UNKNOWN_FAIL));
+    }
+
+    /**
+     * 请求超时异常返回信息
+     *
+     * @return
+     */
+    public static String timeoutErrorMessage() {
+        return JSONObject.toJSONString(BaseResult.fail(BaseVerifyCodeEnum.VERIFY_CLIENT_TIMEOUT));
     }
 }

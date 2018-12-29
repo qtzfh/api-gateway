@@ -1,10 +1,12 @@
 package com.api.gateway.handle;
 
 import com.api.gateway.base.BaseHttpRequest;
+import com.api.gateway.base.BaseRequestInfo;
+import com.api.gateway.base.BaseResult;
 import com.api.gateway.monitor.BaseLogHandle;
-import io.netty.buffer.ByteBuf;
-import io.netty.handler.codec.http.HttpRequest;
 import io.netty.util.CharsetUtil;
+import io.netty.util.internal.logging.InternalLogger;
+import io.netty.util.internal.logging.InternalLoggerFactory;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -16,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
  * @Version V1.0
  */
 public class HttpRequestHandle {
+    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(HttpRequestHandle.class);
     /**
      * 基础日志处理
      */
@@ -24,28 +27,30 @@ public class HttpRequestHandle {
     /**
      * request 请求处理
      *
-     * @param request HttpApiGetWayServerHandler.HttpRequest
-     * @param content HttpApiGetWayServerHandler.ByteBuf
+     * @param requestInfo request请求信息
      * @return
      */
-    public static String requestHandle(HttpRequest request, ByteBuf content) {
-        String result;
-        /* 进行入参校验 */
-        var verify = ApiVerifyHandle.verify(request);
-        if (verify > 0) {
-            /* 获取校验失败信息 */
-            result = ApiVerifyHandle.getVerifyMessage(verify);
-        } else {
-            String body = StringUtils.EMPTY;
-            String uri = GateWayConfig.getGateWayUrl(request);
-            if (content.isReadable()) {
-                body = content.toString(CharsetUtil.UTF_8);
-                result = BaseHttpRequest.send(request.method(), uri, body);
+    public static String requestHandle(BaseRequestInfo requestInfo) {
+        try {
+            var verify = ApiVerifyHandle.verify(requestInfo);
+            if (verify > 0) {
+                return ApiVerifyHandle.getVerifyMessage(verify);
             } else {
-                result = BaseHttpRequest.send(request.method(), uri);
+                String result;
+                String body = StringUtils.EMPTY;
+                String uri = GateWayConfig.getGateWayUrl(requestInfo);
+                if (requestInfo.getContent().isReadable()) {
+                    body = requestInfo.getContent().toString(CharsetUtil.UTF_8);
+                    result = BaseHttpRequest.send(requestInfo.getMethod(), uri, body);
+                } else {
+                    result = BaseHttpRequest.send(requestInfo.getMethod(), uri);
+                }
+                BASE_LOG_HANDLE.send(requestInfo.getMethod().name(), requestInfo.getUri(), body, result);
+                return result;
             }
-            BASE_LOG_HANDLE.send(request.method().name(), request.uri(), body, result);
+        } catch (Exception e) {
+            LOGGER.error("request请求处理失败", e);
         }
-        return result;
+        return BaseResult.defaultErrorMessage();
     }
 }
