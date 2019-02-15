@@ -19,7 +19,7 @@ public class ApiBlackListServiceImpl implements ApiBlackListService {
     @Override
     public Integer getLevelByIp(String ip) {
         if (StringUtils.isBlank(ip)) {
-            return NumberUtils.INTEGER_MINUS_ONE;
+            return NumberUtils.INTEGER_ONE;
         }
         Integer value = BaseInitFactory.BLACK_LIST_HASH_MAP.get(ip);
         return Objects.isNull(value) ? NumberUtils.INTEGER_MINUS_ONE : value;
