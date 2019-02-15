@@ -1,3 +1,8 @@
+## 环境
+* gradle4.10
+* jdk11
+* netty4
+* mysql8.0
 ## API网关
 * 系统架构
     * ![](http://test-1251463082.picsh.myqcloud.com/111.jpg)
