@@ -18,3 +18,7 @@ CREATE TABLE `api_black_list` (
   `gmt_modified` datetime NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='网关黑名单信息';
+
+INSERT INTO `api_gateway`.`api_verify_system`(`id`, `system_name`, `system_url`, `rate_limit`, `gmt_create`, `gmt_modified`, `system_level`) VALUES (1, 'zfhspringboot', 'http://localhost:8081', 20, '2018-11-29 14:10:56', '2018-11-29 14:10:58', 1);
+INSERT INTO `api_gateway`.`api_black_list`(`id`, `ip`, `level`, `gmt_create`, `gmt_modified`) VALUES (1, '127.0.0.1', 1, '2019-02-15 10:36:19', '2019-02-15 10:36:21');
+
